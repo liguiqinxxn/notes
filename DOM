@@ -9,4 +9,35 @@
 	官方解释：是W3C组织推荐的处理可扩展标志语言的标准编程接口。在网页上，组织页面（或文档）的对象被组织在一个树形结构中，用来表示文档中对象的标准模型就称为DOM。
 	简单来说：document提供了一些API(接口)；赋予开发者操作页面的能力
 
-3.节点
+3.nodeType
+	nodeType属性返回节点类型的常数值。不同的类型对应不同的常数值，12种类型分别对应1到12的常数值
+
+	     元素节点            　　     Node.ELEMENT_NODE(1)
+	     属性节点            　　     Node.ATTRIBUTE_NODE(2)
+	     文本节点            　　     Node.TEXT_NODE(3)
+	     CDATA节点                    Node.CDATA_SECTION_NODE(4)
+	     实体引用名称节点    　   Node.ENTRY_REFERENCE_NODE(5)
+	     实体名称节点        　　   Node.ENTITY_NODE(6)
+	     处理指令节点        　　   Node.PROCESSING_INSTRUCTION_NODE(7)
+	     注释节点            　         Node.COMMENT_NODE(8)
+	     文档节点            　         Node.DOCUMENT_NODE(9)
+	     文档类型节点        　　  Node.DOCUMENT_TYPE_NODE(10)
+	     文档片段节点        　　  Node.DOCUMENT_FRAGMENT_NODE(11)
+	     DTD声明节点                 Node.NOTATION_NODE(12)
+	DOM定义了一个Node接口，这个接口在javascript中是作为Node类型实现的，而在IE8-浏览器中的所有DOM对象都是以COM对象的形式实现的。所以，IE8-浏览器并不支持Node对象的写法
+	常用节点类型：元素节点、属性节点、文本节点、注释节点、文档节点
+
+4.子节点
+	childNode：查找某个元素的子节点
+	children：不是标准的属性，但是所有浏览器都支持
+
+5.父节点
+	parentNode：查找某个元素的父节点
+
+6.兄弟节点
+	nextElementSibling：找到某个元素的下个兄弟节点
+	previousElementSibling：找到某个元素的上个兄弟节点
+
+7.第一个子节点，最后的子节点
+	firstElementChild：找到某个元素的第一个子节点
+	lastElementChild：找到某个元素的最后的子节点
