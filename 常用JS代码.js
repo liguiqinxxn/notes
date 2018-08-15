@@ -259,4 +259,34 @@ alert( sum( 1,2,3,4 ) );			// 10
 		for(var i=0; i<3; i++){ document.title = i; }			
 		// 瞬间完成，没有时间根据
 
-22. 
+22. 系统时间对象
+	new Date()
+	getFullYear()
+	getMonth()
+	getDate()
+	getDay()
+	getHours()
+	getMinutes()
+	getSeconds()
+
+23. 倒计时原理
+	var iNow = new Date();
+	// var iNew = new Date( 2013, 10, 27,  21,56,0  );
+	var iNew = new Date( 'November 27,2013 22:3:0' );
+	var t = Math.floor((iNew - iNow)/1000);
+	// 毫秒 - 秒
+	var time = Math.floor(t/86400)+'天'+Math.floor(t%86400/3600)+'时'+Math.floor(t%86400%3600/60)+'分'+t%60+'秒';
+	alert( time );
+
+	天：Math.floor(t/86400)
+	时：Math.floor(t%86400/3600)
+	分：Math.floor(t%86400%3600/60)
+	秒：t%60
+
+	数字形式：new Date( 2013,4,1,9,48,12 );
+	字符串形式：new Date('June 10,2013 12:12:12');
+
+	January、February、March、April、May、June、
+	July、August、September、October、November、December
+
+24. 
