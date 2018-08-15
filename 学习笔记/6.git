@@ -1,0 +1,63 @@
+1.从本地提交代码给远程库
+	git init
+	git add README.md
+	git commit -m "first commit"
+	git remote add origin git@github.com:lgq186/html-css.git
+	git push -u origin master
+
+2.确保ssh秘钥已经添加
+	$ ssh-keygen -t rsa -C "youremail@example.com"  //获取秘钥
+
+3.创建版本库
+	$ mkdir learngit //选择一个合适的地方，创建一个空目录
+	$ cd learngit
+	$ pwd     //pwd命令用于显示当前目录
+    $ git init  //git init命令把这个目录变成Git可以管理的仓库
+    $ ls -ah   //查看当前目录下有什么文件
+
+4.把文件添加到版本库
+	$ git add readme.txt   //把文件添加到仓库
+	$ git commit -m "wrote a readme file"  //把文件提交到仓库 ,-m后面输入的是本次提交的说明
+
+5. 
+	$ git status   //查看仓库的状态
+	$ git diff readme.txt   //可查看修改的内容
+	$ git log   //显示从最近到最远的提交日志
+	$ git log --pretty=oneline //简化日志信息
+	$ git reflog  //查看命令历史
+
+6.时空穿梭
+	穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本
+		1. $ git reset --hard commit_id  //回到某个版本
+		2. $ git reset --hard HEAD^ //回退到上一个版本(用HEAD表示当前版本,上一个版本就是HEAD^，上上一个版本就是HEAD^^，当然往上100个版本写100个^比较容易数不过来，所以写成HEAD~100)
+		3.要重返未来用git reflog查看命令历史，以便确定要回到未来的哪个版本
+
+7.查看内容的命令是cat
+	$ cat readme.txt
+
+8.撤销修改
+	$git checkout -- file  //可以丢弃工作区的修改
+	命令git checkout -- readme.txt意思就是，把readme.txt文件在工作区的修改全部撤销，这里有两种情况：
+		一种是readme.txt自修改后还没有被放到暂存区，现在，撤销修改就回到和版本库一模一样的状态；
+		一种是readme.txt已经添加到暂存区后，又作了修改，现在，撤销修改就回到添加到暂存区后的状态。
+		总之，就是让这个文件回到最近一次git commit或git add时的状态。
+
+9.删除文件
+	第一步：直接在文件管理器中把没用的文件删了，或者用rm命令删了
+		$ rm test.txt
+	第二步：要从版本库中删除该文件，那就用命令git rm删掉，并且git commit：
+		$ git rm test.txt
+		$ git commit -m "remove test.txt"
+
+10.添加到远程库
+	$ git remote add origin git@server-name:path/repo-name.git； //关联远程库
+	$ git push -u origin maste  //关联后，第一次推送master分支的所有内容
+	$ git push origin master  //推送最新修改
+
+11.从远程库克隆
+	$ git clone git@github.com:lgq186/html-css.git
+
+12.分支管理
+
+13. 统计代码量
+Python2 D:/gitstats-master/gitstats.py  E:/git/html-css-js  E:/git/git_result

@@ -1,0 +1,181 @@
+1. webpack指令
+本地安装
+	要安装最新版本或特定版本，请运行以下命令之一：
+	npm install --save-dev webpack
+	npm install --save-dev webpack@<version>
+
+	如果你使用 webpack 4+ 版本，你还需要安装 CLI。
+	npm install --save-dev webpack-cli
+
+	对于大多数项目，我们建议本地安装。这可以使我们在引入破坏式变更(breaking change)的依赖时，更容易分别升级项目。
+
+全局安装
+	以下的 NPM 安装方式，将使 webpack 在全局环境下可用：
+	npm install --global webpack
+
+	不推荐全局安装 webpack。这会将你项目中的 webpack 锁定到指定版本，并且在使用不同的 webpack 版本的项目中，可能会导致构建失败
+
+2 . 安装webpack
+	创建一个新的本地项目目录名为webpack-demo
+
+	mkdir webpack-demo
+	进入目录
+
+	cd webpack-demo
+	创建package.json文件
+
+	npm init -y
+	安装webpack
+
+	# 要安装最新版本或特定版本，请运行以下命令之一：
+	# 第一个安装方式默认安装最新版本
+	npm install --save-dev webpack
+	# 第二个安装方式是安装你需要的版本
+	npm install --save-dev webpack@<version>
+
+	安装webpack-cli
+	npm install --save-dev webpack-cli
+	# 不要忘记webpack4.+开始webpack-cli是必备的哦
+	检查webpack是否安装成功
+
+	node_modules/.bin/webpack -v
+	# 执行了这个命令以后会输出一个版本号
+	# 我的是4.11.1,因为webpack在不断更新所以我们的版本号会有点区别，不是什么问题
+
+3. 删除全局webpack-cli
+	webpack4.x开始官方文档是说要安装cli所以如果的在用4.+就需要卸载cli
+
+	npm uninstall -g webpack-cli
+		# 注释给我这种小白提供参考
+		# 卸载 uninstall  可以简写成 un  
+		# 全局 -g 的完整写法是 --global
+		# 现在问题来了这样真的卸载了webpack-cli吗？
+		# 答案是没有。到现在为止我还没有发现那个webpack-cli是全局安装的，至少官方文档没看到。
+		# 那就看下面怎么删除局部webpack-cli
+	删除本地（局部）webpack-cli
+	npm uninstall webpack-cli
+		# 仔细看你会发现去掉全局参数 -g
+		# 这时候你的命令行会快速滚动一些删除信息。
+		# webpack-cli删除成功
+	删除全局webpack
+	npm uninstall -g webpack
+		# 这个注释还是给小白看的
+		# 为什么要局部全局删除webpack
+		# 因为你可能在安装webpack时不确定自己是全局安装
+		# 还是本地安装，所以建议先执行全局删除命令
+		# 然后在执行下面的本地删除命令
+	删除本地webpack
+	npm uninstall webpack
+		# 这时候小白的webpack是删除完成了
+		# 还没完看下面怎么说
+		检查webpack残余文件
+	ls
+		# 用ls命令查看一下是否有这几个文件
+		# node_modules
+		# package-lock.json
+		# package.json
+		# 有是最好的，如果没有那你可能还没找到自己本地安装webpack的准确位置
+		# 有时候我也找不到了
+		# 现在说有的事
+	rm -rf node_modules package-lock.json package.json
+		# 上面这行命令是删除这些文件的意思
+		# 同学你的webpack 彻底删除干净了
+		# 但是小白一定要好好去了解一下 rm 和 rm -rf 的区别，在这里我不科普怕说错。
+
+4. webpack打包步骤
+	npm init -y
+	npm i -D webpack@3
+	npm run dev
+
+5. 插件
+	安装webpack-plugin插件
+	npm i -D html-webpack-plugin
+
+6. loader
+	npm i
+	npm i -D webpack@3
+	npm i -D html-webpack-plugin
+	npm i -S react react-dom
+	npm i -D babel-loader babel-core
+	npm i -D babel-preset-react
+	npm run dev
+
+7. devServer
+	npm i -D webpack-dev-server  
+	npm start
+
+8.引入css样式
+	npm i -D css-loader    //打包样式
+	npm i -D style-loader  //将打包好的样式插入html
+
+9.引入图片
+	npm i -D file-loader 
+
+10.使用url-loader引入图片
+	npm i -D url-loader
+
+11.引入字体
+	npm i -S font-awesome   //引入字体图标
+
+12. 使用Less和Scss
+	npm i -D sass-loader node-sass  //安裝sass-loader
+	npm i -D less-loader less       //安裝less-loader
+
+13.babel
+	npm i -D babel-cli
+	npm i -D babel-plugin-transform-es2015-arrow-functions //安装插件
+	npm i -D babel-plugin-transform-es2015-classes //安装插件
+	npm i -D babel-preset-es2015 //安装预设
+
+14.babel-loader
+	npm i -D babel-preset-env //安装预设
+	npm i -D babel-plugin-transform-object-rest-spread //安装插件
+
+15.输出路径处理
+	npm i -D clean-webpack-plugin  //清除打包的数据
+
+16.自动化打包工具：WebPacker
+
+	这次的webpack内容演示需要安装node环境
+		这是下载地址：https://nodejs.org/en/download/
+		关于babel的链接：https://babeljs.io
+
+		已经实现的功能：
+			1. 模块化
+			2. 安装
+			3. raw-loader  npm i -D raw-loader
+			4. url-loader
+			5. json-loader  
+			6. babel-loader 
+				npm i -D babel-loader babel-core babel-preset-env webpack
+			7. css-loader、style-loader
+			8. vue-loader
+			9. CommonsChunkPlugin  提取chunks之间共享的通用模块
+			10. ExtractTextWebpackPlugin  提取分离成独立的css文件
+			11. UglifyjsWebpackPlugin  压缩文件的插件
+			12. webpack-dev-server
+			13. ProvidePlugin  自动加载模块，而不必到处import或require
+
+	安装
+		npm install -S webpack //本地安装
+		npm install -g webpack //全局安装
+
+	配置文件
+		webpack.config.js
+			运行webpack命令的时候加载的配置文件，当webpack命令运行的时候，会加载该文件，根据该文件的配置内容进行执行。
+
+			const path = require('path');
+
+			//导出一个node模块，供webpack去调用，导出是一个对象，该对象设置webpack运行过程中一些配置参数
+			module.exports = {
+				//应用的入口文件，webpack会分析这个入口文件中导入的其他文件，并进行处理，最后进行打包
+				entry: './src/index.js'  
+
+				//设置打包后的文件输出的配置
+				output: {
+					path: path.resolve(__dirname,'dist'),
+					filename: 'bundle.js'
+				}
+			};
+
+
