@@ -289,4 +289,73 @@ alert( sum( 1,2,3,4 ) );			// 10
 	January、February、March、April、May、June、
 	July、August、September、October、November、December
 
-24. 
+24. 字符串获取
+	charAt()        //获取字符串中字符
+	charCodeAt()    //根据字符返回Unicode编码
+	fromCharCode()  //根据数字返回字符
+
+	alert( 'miaov'.charAt(2) );  //a
+	alert( 'miaov'.charCodeAt(2) ); //97
+	alert( String.fromCharCode(22937, 21619) ); //妙味
+
+25. 查找字符串的位置
+	indexOf()   //查找字符串的位置
+	lastIndexOf()  //从右往左查找字符串的位置
+
+	var str = '妙味课堂是一支独具特色的IT培训团队，妙味反对传统IT教育枯燥乏味的教学模式，妙味提供一种全新的快乐学习方法！';
+
+	str.indexOf('妙味', 2);		// 从左往右找
+	alert( str.lastIndexOf('妙味', 38) );  //从右往左找
+	// 如果第2个值为负数，默认当成0来处理
+
+26. 截取字符串
+	substring()    //截取字符串
+	slice()     //截取字符串
+
+	var str = '妙味课堂是一支独具特色的IT培训团队';
+
+	alert( str.substring(0,2) );
+	alert( str.substring(2,0) );     // 可以检测两个数，大的往后扔，小的往前扔
+	alert( str.substring(-3, 2) );   // -3 当成0处理
+	alert( str.substring(2, -3) );	
+
+	alert( str.slice( 2, 0 ) );		// 不交换位置
+	alert( str.slice( -4, -2 ) );	// 负数从后面倒着往前数~
+
+27. 大小写转换
+	toUpperCase()  // 转成大写
+	toLowerCase()  // 转成小写
+
+	var str = 'www.MIAOV.com';
+	alert( str.toUpperCase() );			// 转成大写
+	alert( str.toLowerCase() );			// 转成小写
+
+28. 分割字符串成数组
+	split()   //分割字符串
+
+	var str = 'www.miaov.com';
+	alert( str.split('.') );	// [ 'www', 'miaov', 'com' ]
+
+	var arr = str.split( '.' );  //根据.分割
+	alert( arr[1] );
+
+	var str1 = 'leo';
+	alert( typeof str1.split() );	// [ 'leo' ]
+	alert( str1.split('') );     // [ 'l', 'e', 'o' ]
+
+	var str3 = '/www.miaov.com/';
+	alert( str3.split('/').length );  // [ , www.miaov.com,  ]
+
+	var str4 = '2013-11-29-23-07';
+	alert( str4.split('-', 3) );  //[2013,11,29]
+
+29. 将数组转化为字符串
+
+	var arr = [ 'aa', 'bb', 'cc' ];
+
+	alert( typeof arr.join() ); 	//'aa'+','+'bb'+','+'cc'
+	alert( arr.join().length );
+	alert( arr.join('') );        //'aa'+''+'bb'+''+'cc'
+	alert( arr.join('-') );       //'aa'+'-'+'bb'+'-'+'cc'
+ 
+30.

@@ -139,3 +139,12 @@ function backgroundColorRGBA(obj, dir, target, endFn){ //对象背景颜色的�
 			
 		}, 100);
 	}
+
+function detectNum ( str ) { //检测是否全是数字
+	var n = 0;
+	for ( var i=0; i<str.length; i++ ) {
+		n = str.charCodeAt(i);
+		if ( n<48 || n>57 )return false;
+	}
+	return true;
+}
