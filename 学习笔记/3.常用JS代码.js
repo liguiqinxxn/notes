@@ -358,4 +358,122 @@ alert( sum( 1,2,3,4 ) );			// 10
 	alert( arr.join('') );        //'aa'+''+'bb'+''+'cc'
 	alert( arr.join('-') );       //'aa'+'-'+'bb'+'-'+'cc'
  
-30.
+30. 数组的添加方法
+	push()   //往数组后面添加数据
+	unshift()  //往数组开头添加数据
+
+	var arr = [ 1,2,3 ];
+
+	alert( arr.push( 'abc' ) ); //返回数组的长度
+	alert( arr );
+	alert( arr.unshift( 0 ) ); // IE 6  7 不支持 unshift 返回值  //返回数组的长度
+	alert( arr );
+
+31. 数组的删除方法
+	pop()    //删除数组最后一个数据
+	shift()  //删除数组第一个数据
+
+	var arr = [ 'TM', '钟毅', '张森', '杜鹏', 'Leo' ];
+	alert( arr.pop() ); //返回数组删除的数据
+	alert( arr );
+	alert( arr.shift() ); //返回数组删除的数据
+	arr.shift();
+	alert( arr );
+
+	var arr = [ 'TM', '钟毅', '张森', '杜鹏', 'Leo' ];
+	arr.unshift(arr.pop()); //将最后一个数据添加到第一个
+	arr.push(arr.shift())  //将第一个数据添加到最后
+	alert( arr );
+
+32. splice方法
+	var arr = [ 'TM', '钟毅', '张森', '杜鹏', 'Leo' ];
+	// 删除、替换、添加
+	arr.splice( 0 , 2);  //删除
+	alert( arr.splice( 0 , 0, 'aaaaaa' ) ); //添加
+	arr.splice( 0, 2, '莫涛 or 钟毅' );   //替换
+	alert( arr.splice( 1, 0, '钟毅媳妇儿~', '钟毅媳妇们~' ) ); //添加
+	alert( arr );
+
+	注意：返回值只返回删除的数据
+
+33. 数组去重
+	var arr = [ 1,2,2,4,2 ];
+
+	for ( var i=0; i<arr.length; i++ ) {
+		for ( var j=i+1; j<arr.length; j++ ) {
+			if ( arr[i] == arr[j] ) {
+				arr.splice( j, 1 );
+				j--;
+			}
+		}
+	}
+	alert( arr );
+
+34. sort排序
+	var arr = [ 'c', 'd', 'a', 'e' ];
+	arr.sort();
+	alert( arr );
+
+	var arr2 = [ 4,3,5,5,76,2,0,8 ];
+	arr2.sort();  //按照字符串的规则来排序
+	alert( arr2 );
+
+	arr2.sort(function ( a, b ) {
+		return a - b;
+	});
+	alert( arr2 );
+
+	var arrWidth = [ '345px', '23px', '10px', '1000px' ];
+	arrWidth.sort(function ( a, b ) {
+		return parseInt(a) - parseInt(b);
+	});
+	alert( arrWidth );
+
+	排序方法：快速、希尔、谢尔、冒泡、归并、选择、插入
+
+35. 随机排序
+	var arr = [ 1,2,3,4,5,6,7,8 ];
+	arr.sort(function ( a, b ) {
+		return Math.random() - 0.5;
+	});
+	alert( arr );
+
+36. 随机函数
+	alert( Math.round(3.4) );  //四舍五入
+	alert( Math.ceil(3.4) );  //向上取整
+	0~1 : Math.round(Math.random());
+	//0~10
+	alert( Math.round(Math.random()*10) );
+	//5~10
+	alert( Math.round( Math.random()*5 + 5 ) );
+	//10~20
+	alert( Math.round( Math.random()*10 + 10 ) );
+	//20~100
+	alert( Math.round( Math.random()*80 + 20 ) );
+
+	x ~ y
+	var x = 3;
+	var y = 49;
+	alert( Math.round( Math.random()*(y-x) + x ) );
+	//0~x
+	alert( Math.round( Math.random()*x) );
+	//1~x
+	alert( Math.ceil( Math.random()*x) );
+
+37. 数组的方法
+	concat() //连接数组
+	reverse() //数组取反
+
+	var arr1 = [ 1,2,3 ];
+	var arr2 = [ 4,5,6 ];
+	var arr3 = [ 7,8,9 ];
+	alert( arr1.concat( arr2, arr3 ) ); //连接数组
+
+	var arr1 = [ 1,2,3,4,5,6 ];
+	arr1.reverse();
+	alert( arr1 );
+
+	var str = 'abcdef';
+	alert(str.split('').reverse().join('')); //字符串取反
+
+38. 
