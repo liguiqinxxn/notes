@@ -17,9 +17,10 @@ a{
 	text-decoration: none;
 }
 
-2. 鼠标移入变手型
+2. 鼠标移入变手型 、禁止
 
-li {cursor: pointer;}
+	cursor: pointer; /*鼠标移入变手型*/
+	cursor: not-allowed; /*鼠标移入变禁止*/
 
 3. border
 dotted: 定义一个点线边框

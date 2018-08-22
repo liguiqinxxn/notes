@@ -476,4 +476,39 @@ alert( sum( 1,2,3,4 ) );			// 10
 	var str = 'abcdef';
 	alert(str.split('').reverse().join('')); //字符串取反
 
-38. 
+38. classList的add和remove
+
+	this.classList.add('box2');
+	this.classList.remove('box2');
+
+39. ()=>   //箭头函数
+
+40. Math函数
+	Math.min()  //返回一组数据中最小的一个
+	Math.max()  //返回一组数据中最大的一个
+
+41. &&
+	// &&前面为真，就返回&&后面的
+	num == 10 &&this.classList.add('up-disabled');
+
+42. 获取元素的方法
+	querySelector() 单个
+	querySelectorAll() 一组
+	(选择器写法)
+	.class #id
+	ie8以下不要用
+	不是实时的
+
+43. var 、let 、const
+	var 支持作用域
+        - 全局
+        - 函数
+    let 支持作用域
+        - 全局
+        - 函数
+        - 块
+
+44. every 、some
+	every     --用于循环数组中的每一项，在指定的函数中做判断，如果全部符合返回true，有一项不符合就返回false
+	some      --只要有其中一项符合，就返回true
+
