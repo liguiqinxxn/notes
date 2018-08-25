@@ -1,0 +1,318 @@
+------------------------------BOM-----------------------------
+1. BOM : Browser Object Model 浏览器对象模型
+
+2. open
+	open(页面的地址url，打开的方式) 方法 打开一个新的窗口(页面)
+		如果 url 为空，则默认打开一个空白页面
+		如果打开方式为空，默认为新窗口方式打开
+
+	返回值：返回新打开的窗口的 window 对象
+
+3.close() 方法 关闭窗口
+	window.close();
+	1. ff : 无法关闭
+	2. chrome : 直接关闭
+	3. ie : 询问用户
+
+4. window.navigator.userAgent -> 浏览器信息
+
+	if ( window.navigator.userAgent.indexOf('MSIE') != -1 ) {
+		alert('我是ie');
+	} else {
+		alert('我不是ie');
+	}
+
+5.window.location : 浏览器地址信息
+	
+	alert( window.location );
+
+	window.location.href:url
+	alert( window.location.href );
+
+	window.location.search:url?后面的内容
+	alert( window.location.search );
+
+	window.location.hash:url#后面的内容
+	alert( window.location.hash );
+
+6.窗口尺寸与大小
+	可视区尺寸
+		document.documentElement.clientWidth
+		document.documentElement.clientHeight
+	滚动距离
+		document.boby.scrollTop/scrollLeft
+		document.documentElement.scrollTop/scrollLeft
+	内容高度
+		document.body.scrollHeight
+	文档高度
+		document.documentElement.offsetHeight
+		document.body.offsetHeight
+
+7.兼容滚动距离
+	Chrome滚动条属于body
+	Firefox、IE滚动条属于documentElement
+	兼容方法：
+		var scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+
+8.兼容文档高度
+	文档高度
+		document.documentElement.offsetHeight
+		document.body.offsetHeight
+
+	Chrome、Firefox、IE11下用documentElement可获取文档高度
+	IE10以及以下 documentElement被认为是可视区，获取文档高度用body
+
+9.
+	onscroll : 当滚动条滚动的时候触发
+	onresize : 当窗口大小发生改变的时候出发
+
+	var i = 0;
+	window.onscroll = function() {
+		document.title = i++;
+	}
+	window.onresize = function() {
+		document.title = i++;
+	}
+------------------------------EVENT事件-----------------------------
+10. 焦点事件
+	焦点 : 使浏览器能够区分用户输入的对象，当一个元素有焦点的时候，那么他就可以接收用户的输入。
+
+	我们可以通过一些方式给元素设置焦点
+		1.点击
+		2.tab
+		3.js
+		不是所有元素都能够接收焦点的.能够响应用户操作的元素才有焦点
+
+	onfocus : 当元素获取到焦点的时候触发
+	onblur : 当元素失去焦点的时候触发
+
+	obj.focus() 给指定的元素设置焦点
+	obj.blur() 取消指定元素的焦点
+	obj.select() 选择指定元素里面的文本内容
+
+11. event事件对象
+
+	event : 事件对象 , 当一个事件发生的时候，和当前这个对象发生的这个事件有关的一些详细的信息都会被临时保存到一个指定地方-event对象，供我们在需要的调用。飞机-黑匣子
+
+	事件对象必须在一个事件调用的函数里面使用才有内容
+	事件函数：事件调用的函数，一个函数是不是事件函数，不在定义的决定，而是取决于这个调用的时候
+
+	兼容
+	ie/chrome : event是一个内置全局对象
+	标准下 : 事件对象是通过事件函数的第一个参数传入
+
+	如果一个函数是被事件调用的那么，这个函数定义的第一个参数就是事件对象
+
+	clientX[Y] : 当一个事件发生的时候，鼠标到页面可视区的距离
+
+	function fn1(ev) {
+		//alert( event );  // ie/chrome
+		//alert( ev );     //标准下
+		var ev = ev || event; //兼容
+		alert(ev);
+		
+		/*for ( var attr in ev ) {
+			console.log( attr + ' = ' + ev[attr] );
+		}*/
+		
+		alert(ev.clientX);
+	}
+
+	//fn1();	//不是事件调用的函数
+	document.onclick = fn1;	//是事件调用的函数，所以event有内容
+
+12. clientX,clientY
+	clientX[Y] : 当一个事件发生的时候，鼠标到页面可视区的距离
+	onmousemove : 当鼠标在一个元素上面移动的触发
+	触发频率不是像素，而是间隔时间，在一个指定时间内（很短），如果鼠标的位置和上一次的位置发生了变化，那么就会触发一次
+
+	var i = 0;
+	
+	var oDiv = document.getElementById('div1');
+	
+	document.onmousemove = function(ev) {
+		//document.title = i++;
+		
+		var ev = ev || event;
+		
+		var scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+		
+		oDiv.style.left = ev.clientX + 'px';
+		oDiv.style.top = ev.clientY + scrollTop + 'px';
+		
+	}
+
+13. 事件流
+
+	事件冒泡 : 当一个元素接收到事件的时候，会把他接收到的所有传播给他的父级，一直到顶层window.事件冒泡机制
+
+	阻止冒泡 : 当前要阻止冒泡的事件函数中调用 event.cancelBubble = true;
+
+	var oBtn = document.getElementById('btn');
+	var oDiv = document.getElementById('div1');
+	
+	oBtn.onclick = function(ev) {
+		var ev = ev || event;
+		ev.cancelBubble = true; //阻止当前对象的当前事件的冒泡
+		oDiv.style.display = 'block';
+	}
+	
+	oBtn.onmouseover = function(ev) {
+		var ev = ev || event;
+		ev.cancelBubble = true;
+	}
+	
+	document.onclick = function() {
+		oDiv.style.display = 'none';
+	}
+
+14. 事件绑定的第二种形式
+	给一个对象绑定一个事件处理函数的第一种形式
+	obj.onclick = fn;
+	function fn1() {
+		alert(this);
+	}
+	function fn2() {
+		alert(2);
+	}
+
+	document.onclick = fn1;
+	document.onclick = fn2;	//会覆盖前面绑定fn1
+
+	给一个对象的同一个事件绑定多个不同的函数
+	给一个元素绑定事件函数的第二种形式
+
+	ie：obj.attachEvent(事件名称，事件函数);
+		1.没有捕获
+		2.事件名称有on
+		3.事件函数执行的顺序：标准ie-》正序   非标准ie-》倒序
+		4.this指向window
+	标准：obj.addEventListener(事件名称，事件函数，是否捕获);
+		1.有捕获
+		2.事件名称没有on
+		3.事件执行的顺序是正序
+		4.this触发该事件的对象
+
+		是否捕获 : 默认是false    false:冒泡 true：捕获
+
+		兼容方法：
+		// 绑定事件
+		function bind(obj, evname, fn) {
+			if (obj.addEventListener) {  //标准浏览器
+				obj.addEventListener(evname, fn, false);
+			} else {   //ie下
+				obj.attachEvent('on' + evname, function() {
+					fn.call(obj);  //兼容ie下this指向window
+				});
+			}
+		}
+
+15. call
+	 call 函数下的一个方法，call方法第一个参数可以改变函数执行过程中的内部this的指向，call方法第二个参数开始就是原来函数的参数列表
+
+	 function fn1(a, b) {
+		alert(this);
+		alert(a + b);
+	}
+
+	fn1();	//window
+	fn1.call(null, 10, 20);	//调用函数	fn1() == fn1.call()
+
+16. 事件捕获
+	var oDiv1 = document.getElementById('div1');
+	var oDiv2 = document.getElementById('div2');
+	var oDiv3 = document.getElementById('div3');
+	
+	function fn1() {
+		alert( this.id );
+	}
+	
+	/*oDiv1.onclick = fn1;
+	oDiv2.onclick = fn1;
+	oDiv3.onclick = fn1;*/
+	
+	//false = 冒泡
+	//true = 捕获
+	
+	//告诉div1，如果有一个出去的事件触发了你，你就去执行fn1这个函数
+	/*oDiv1.addEventListener('click', fn1, false);
+	oDiv2.addEventListener('click', fn1, false);
+	oDiv3.addEventListener('click', fn1, false);*/
+	
+	//告诉div1，如果有一个进去的事件触发了你，你就去执行fn1这个函数
+	/*oDiv1.addEventListener('click', fn1, true);
+	oDiv2.addEventListener('click', fn1, true);
+	oDiv3.addEventListener('click', fn1, true);*/
+	
+	oDiv1.addEventListener('click', function() {
+		alert(1);
+	}, false);
+	oDiv1.addEventListener('click', function() {
+		alert(3);
+	}, true);
+	oDiv3.addEventListener('click', function() {
+		alert(2);
+	}, false);
+
+17. 事件的取消
+	第一种事件绑定形式的取消
+	function fn1() {
+		alert(1);
+	}
+	function fn2() {
+		alert(2);
+	}
+	document.onclick = fn1;
+	document.onclick = null;	//取消
+
+	第二种事件绑定形式的取消
+	ie : obj.detachEvent(事件名称，事件函数);
+	标准 : obj.removeEventListener(事件名称，事件函数，是否捕获);
+
+	//ie下
+	/*document.attachEvent('onclick', fn1);
+	document.attachEvent('onclick', fn2);
+	document.detachEvent('onclick', fn1);*/
+
+	//标准
+	document.addEventListener('click', fn1, false);
+	document.addEventListener('click', fn1, true);
+	document.addEventListener('click', fn2, false);
+
+	document.removeEventListener('click', fn1, false);
+
+18. 键盘事件
+	onkeydown : 当键盘按键按下的时候触发
+	onkeyup : 当键盘按键抬起的时候触发
+
+	event.keyCode : 数字类型 键盘按键的值 键值
+	ctrlKey,shiftKey,altKey 布尔值
+		当一个事件发生的时候，如果ctrl || shift || alt 是按下的状态，返回true，否则返回false
+
+19. 事件默认行为_默认事件
+	事件默认行为：当一个事件发生的时候浏览器自己会默认做的事情
+	怎么阻止？
+	当前这个行为是什么事件触发的，然后在这个事件的处理函数中使用return false;
+
+	oncontextmenu : 右键菜单事件，当右键菜单（环境菜单）显示出来的时候触发
+
+	document.onkeydown = function() {
+		return false;
+	}
+
+	document.oncontextmenu = function() {
+		return false;
+	}
+20. 拖拽的原理
+	onmousedown : 选择元素
+	onmousemove : 移动元素
+	onmouseup   : 释放元素
+
+	1.拖拽的时候，如果有文字被选中，会产生问题
+		原因：当鼠标按下的时候，如果页面中有文字被选中，那么会触发浏览器默认拖拽文字的效果
+			解决：
+				标准：阻止默认行为
+				非标准ie：全局捕获
+
+21.setCapture()	
+	设置全局捕获 ，当我们给一个元素设置全局捕获以后，那么这个元素就会监听后续发生的所有事件，当有事件发生的时候，就会被当前设置了全局捕获的元素所触发

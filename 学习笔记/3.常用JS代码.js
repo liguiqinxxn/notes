@@ -512,3 +512,16 @@ alert( sum( 1,2,3,4 ) );			// 10
 	every     --用于循环数组中的每一项，在指定的函数中做判断，如果全部符合返回true，有一项不符合就返回false
 	some      --只要有其中一项符合，就返回true
 
+45. 阻止冒泡
+	document.onmousedown = function (ev){
+	// 阻止冒泡
+	ev.stopPropagation();
+	}
+
+46. 取消默认行为
+	document.onmousemove = function(ev){
+		//取消默认行为
+		ev.preventDefault();
+	}
+
+47. 
