@@ -193,3 +193,59 @@ function bind(obj, evname, fn) {
 		});
 	}
 }
+
+// 拖拽
+function drag(obj) {
+	
+	obj.onmousedown = function(ev) {
+		var ev = ev || event;
+		
+		var disX = ev.clientX - this.offsetLeft;
+		var disY = ev.clientY - this.offsetTop;
+		
+		if ( obj.setCapture ) {
+			obj.setCapture();
+		}
+		
+		document.onmousemove = function(ev) {
+			var ev = ev || event;
+			
+			obj.style.left = ev.clientX - disX + 'px';
+			obj.style.top = ev.clientY - disY + 'px';
+		}
+		
+		document.onmouseup = function() {
+			document.onmousemove = document.onmouseup = null;
+			//释放全局捕获 releaseCapture();
+			if ( obj.releaseCapture ) {
+				obj.releaseCapture();
+			}
+		}
+		
+		return false;
+		
+	}
+	
+}
+
+// 设置cookie
+function setCookie(key, value, t) {
+	var oDate = new Date();
+	oDate.setDate( oDate.getDate() + t );
+	document.cookie = key + '=' + value + ';expires=' + oDate.toGMTString();
+}
+// 获取cookie
+function getCookie(key) {
+	var arr1 = document.cookie.split('; ');
+	for (var i=0; i<arr1.length; i++) {
+		var arr2 = arr1[i].split('=');
+		if ( arr2[0] == key ) {
+			return decodeURI(arr2[1]);
+		}
+	}
+}
+// 删除cookie
+function removeCookie(key) {
+	setCookie(key, '', -1);
+}
+

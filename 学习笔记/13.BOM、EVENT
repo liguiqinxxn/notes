@@ -314,5 +314,56 @@
 				标准：阻止默认行为
 				非标准ie：全局捕获
 
-21.setCapture()	
+21. setCapture()	
 	设置全局捕获 ，当我们给一个元素设置全局捕获以后，那么这个元素就会监听后续发生的所有事件，当有事件发生的时候，就会被当前设置了全局捕获的元素所触发
+
+	ie : 有，并且有效果
+	ff : 有，但是没效果
+	chrome : 没有
+
+22. 鼠标滚轮事件
+	ie/chrome : onmousewheel
+		event.wheelDelta
+			上：120
+			下：-120
+		
+	firefox : DOMMouseScroll 必须用addEventListener
+		event.detail
+			上：-3
+			下：3
+			
+	return false阻止的是  obj.on事件名称=fn 所触发的默认行为
+	addEventListener绑定的事件需要通过event下面的preventDefault();
+
+23. cookie 
+	cookie : 存储数据，当用户访问了某个网站（网页）的时候，我们就可以通过cookie来像访问者电脑上存储数据
+		1.不同的浏览器存放的cookie位置不一样，也是不能通用的
+		2.cookie的存储是以域名形式进行区分的
+		3.cookie的数据可以设置名字的
+		4.一个域名下存放的cookie的个数是有限制的，不同的浏览器存放的个数不一样
+		5.每个cookie存放的内容大小也是有限制的，不同的浏览器存放大小不一样
+		
+		我们通过document.cookie来获取当前网站下的cookie的时候，得到的字符串形式的值，他包含了当前网站下所有的cookie。他会把所有的cookie通过一个分号+空格的形式串联起来
+		
+		如果我们想长时间存放一个cookie。需要在设置这个cookie的时候同时给他设置一个过期的时间
+		cookie默认是临时存储的，当浏览器关闭进程的时候自动销毁
+
+	document.cookie = '名字=值';
+	document.cookie = '名称=值;expires=' + 字符串格式的时间;
+	内容最好编码存放,encodeURI
+	encodeURI：编码存放
+	decodeURI：解码
+
+	例：
+		document.cookie = 'username=leo';
+		document.cookie = 'age=32';
+
+		var oDate = new Date();
+		oDate.setDate( oDate.getDate() + 5 );
+
+		document.cookie = 'username='+ encodeURI('leo\n你好') +';expires=' + oDate.toGMTString();
+		document.cookie = 'age=32';
+
+		alert(decodeURI(document.cookie)); //decodeURI：解码
+
+24. 
