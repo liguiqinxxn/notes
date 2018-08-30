@@ -146,7 +146,8 @@
 
 	事件冒泡 : 当一个元素接收到事件的时候，会把他接收到的所有传播给他的父级，一直到顶层window.事件冒泡机制
 
-	阻止冒泡 : 当前要阻止冒泡的事件函数中调用 event.cancelBubble = true;
+	阻止冒泡 : 当前要阻止冒泡的事件函数中调用 event.cancelBubble = true; //用于事件绑定
+	阻止冒泡：event.stopPropagation(); //用于事件监听
 
 	var oBtn = document.getElementById('btn');
 	var oDiv = document.getElementById('div1');
@@ -354,6 +355,8 @@
 	encodeURI：编码存放
 	decodeURI：解码
 
+	toGMTString() 方法可根据格林威治时间 (GMT) 把 Date 对象转换为字符串，并返回结果，不赞成使用此方法。请使用 toUTCString() 取而代之！！
+
 	例：
 		document.cookie = 'username=leo';
 		document.cookie = 'age=32';
@@ -366,4 +369,23 @@
 
 		alert(decodeURI(document.cookie)); //decodeURI：解码
 
-24. 
+24. 事件流：
+			事件的执行过程
+			事件捕获--> 事件目标-->事件冒泡 
+		
+		事件捕获: 当页面发生事件的时候，会从顶层对象一层一层向下去查找发生事件的这个元素，在查找的过程中，如果元素有对应的事件就执行
+
+		事件目标
+
+		事件冒泡: 从当前开始会一直向上传递该事件，一直传递到顶层，在传递的过程中，如果元素有对应的事件就执行	
+
+25. 事件代理（事件委托）
+
+26. 事件对象
+	事件对象：存储了关于这个事件具体
+
+	在标准下是事件函数的第0个参数
+	在IE下 window.event
+	let e = e||event;
+
+27. 
