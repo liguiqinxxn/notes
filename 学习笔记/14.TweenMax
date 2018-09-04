@@ -87,3 +87,4 @@
 			返回值是状态的字符串，如果没有上一个状态返回null	
 
 6. ease：动画运动形式
+   具体形式参考：https://greensock.com/docs/Easing
