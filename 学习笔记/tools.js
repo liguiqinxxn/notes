@@ -1,9 +1,7 @@
-
 /*
 原生封装的操作DOM的方法
 元素获取、事件绑定、对class进行增删改查
 */
-
 var tools = (function(){
 	var toolsObj = {
 		$:function(selector,context){

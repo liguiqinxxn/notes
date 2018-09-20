@@ -1,14 +1,16 @@
-/*弹性:
-速度 += (目标点 - 当前值)/系数;  //6 , 7 , 8
-速度 *= 摩擦系数;   // 0.7 0.75
+/*JavaScript原生封装的运动*/
 
+/*
+弹性公式
+弹性:
+	速度 += (目标点 - 当前值)/系数;  //6 , 7 , 8
+	速度 *= 摩擦系数;   // 0.7 0.75
 缓冲:
-var 速度 = (目标点 - 当前值)/系数;
-速度取整*/
+	var 速度 = (目标点 - 当前值)/系数;
+	速度取整*/
 
 var move = (function(){
 	var moveObj = {
-
 		css:function(obj, attr){
 			if (obj.currentStyle) {
 				return obj.currentStyle[attr];
@@ -16,8 +18,8 @@ var move = (function(){
 				return getComputedStyle(obj, false)[attr];
 			}
 		},
-		/*运动框架加入缓冲
 
+		/*运动框架加入缓冲
 		调用方式：
 		startMove(this, {
 			width : 200
@@ -31,7 +33,6 @@ var move = (function(){
 			width : 200,
 			height : 200
 		});
-
 		*/
 		startMove:function(obj,json,fn){
 			clearInterval(obj.iTimer);
