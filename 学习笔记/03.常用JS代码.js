@@ -524,4 +524,5 @@ alert( sum( 1,2,3,4 ) );			// 10
 		ev.preventDefault();
 	}
 
-47. 
+47. 刷新页面
+	window.location.reload();

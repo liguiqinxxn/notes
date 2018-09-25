@@ -1,3 +1,5 @@
+地址目录中不能用中文，即文件名不能用中文
+
 1.什么是ajax？
 	ajax : Asynchronous JavaScript and XML 异步JavaScript和XML
 		--节省用户操作，时间，提高用户体验，减少数据请求
@@ -30,11 +32,12 @@
 		xhr = new ActiveXObject('Microsoft.XMLHTTP');
 	}
 	//第二种
-	try {
-			xhr = new XMLHttpRequest();
-		} catch (e) {
-			xhr = new ActiveXObject('Microsoft.XMLHTTP');
-		}
+	try { 
+	//代码尝试执行这个块中的内容，如果有错误，则会执行catch{}，并且传入错误信息参数
+		xhr = new XMLHttpRequest();
+	} catch (e) {
+		xhr = new ActiveXObject('Microsoft.XMLHTTP');
+	}
 
 	xhr.open('get','1.txt',true);
 	xhr.send();
@@ -64,8 +67,12 @@
 			理论上无限制
 	enctype:提交的数据格式，默认application/x-www-form-urlencoded
 
+	$_POST:获取post提交的方式的数据
+	$_GET:获取get提交的方式的数据
+	$_REQUEST:可以获取post和get两种提交方式的数据
+
 7.数据获取
-	onreadystatechange事件
+	onreadystatechange事件 ：当readyState改变的时候触发
 		readyState：ajax工作的状态
 			0 (初始化)还没有调用open()方法
 			1 (载入)已调用send()方法，正在发送请求
@@ -82,8 +89,7 @@
 			alert( xhr.responseText );
 			} else {
 				alert('出错了，Err:' + xhr.status);
-			}
-			
+			}	
 		}
 	}
 
@@ -147,17 +153,19 @@
 	505	HTTP Version not supported	服务器不支持请求的HTTP协议的版本，无法完成处理
 
 9.缓存问题
-get方式
-	1.在url？后面连接一个随机数，时间戳
-		xhr.open('get','2.get.php?username='leo+'&age=30&' + new Date().getTime(),true);
-	2.乱码 编码encodeURI   (中文时显示乱码)
-		xhr.open('get','2.get.php?username='+encodeURI('刘伟')+'&age=30&' + new Date().getTime(),true);
+	get方式
+		1.在url？后面连接一个随机数，时间戳
+			xhr.open('get','2.get.php?username='leo+'&age=30&' + new Date().getTime(),true);
 
-post方式（post没有缓存问题,无需编码）
-	xhr.open('post','5-post.php,true);
-	//post方式，数据放在send()里面作为参数传递
-    xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');//申明发送的数据类型
-    xhr.send('username=刘伟&age=30');
+		2.乱码 编码encodeURI   (中文时显示乱码)
+			xhr.open('get','2.get.php?username='+encodeURI('刘伟')+'&age=30&' + new Date().getTime(),true);
+
+	post方式（post没有缓存问题,无需编码，但是要声明发送的数据类型）
+		xhr.open('post','5-post.php,true);  //post方式，数据放在send()里面作为参数传递
+
+	    xhr.setRequestHeader('content-type', 'application/x-www-form-urlencoded');//申明发送的数据类型
+
+	    xhr.send('username=刘伟&age=30');
 
 10.JSON 
 	1.ie7以下不支持
@@ -165,3 +173,5 @@ post方式（post没有缓存问题,无需编码）
 	2.
 	stringify : 可以把一个对象转成对应字符串
 	parse : 可以把字符串转成对应对象
+
+11.
