@@ -17,6 +17,14 @@ a{
 	text-decoration: none;
 }
 
+.clearfix {
+	*zoom:1;
+}
+.clearfix:after {
+	content: "";
+	display: block;
+	clear: both;
+}
 2. 鼠标移入变手型 、禁止
 
 	cursor: pointer; /*鼠标移入变手型*/
