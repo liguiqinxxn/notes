@@ -40,4 +40,9 @@ ridge: 定义3D脊边框。效果取决于边框的颜色值
 inset:定义一个3D的嵌入边框。效果取决于边框的颜色值
 outset: 定义一个3D突出边框。 效果取决于边框的颜色值
 
-4. 
+4. 去除ios手机端input输入框上方有阴影
+	input{
+	    -webkit-appearance: none;
+	}
+
+5. 
