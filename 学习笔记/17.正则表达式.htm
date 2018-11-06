@@ -141,4 +141,42 @@ t \t
 	alert( str.match(re) );  //[abc,a,b,c](当match不加g的时候才可以获取到子项的集合)
 
 
-10.
+10.正则表达式字符类
+
+	任意字符
+		[abc]
+		例子：o[usb]t——obt、ost、out
+	范围
+		[a-z]、[0-9]
+		例子：id[0-9]——id0、id5
+	排除
+		[^a]
+		例子：o[^0-9]t——oat、o?t、o t
+
+
+	字符类 : 一组相似的元素   [] 中括号的整体代表一个字符
+
+	var str = 'abdc';
+
+	var re = /a[bde]c/;
+
+	alert( re.test(str) );
+
+
+	排除 : ^ 如果^写在[]里面的话，就代表排除的意思
+
+	var str = 'abc';
+
+	var re = /a[^bde]c/;
+
+	alert( re.test(str) );
+
+	范围:
+
+	var str = 'abc';
+
+	var re = /a[a-z0-9A-Z]c/;
+
+	alert( re.test(str) );
+
+11.
