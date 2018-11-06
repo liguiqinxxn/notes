@@ -146,10 +146,11 @@
 
 		function Bbb(){   //子类
 			
-			Aaa.call(this);
+			Aaa.call(this); //继承父类属性
 			
 		}
 
+		避免继承属性继承，只继承方法
 		var F = function(){};
 		F.prototype = Aaa.prototype;
 		Bbb.prototype = new F();
@@ -165,4 +166,41 @@
 
 		alert( b2.name );
 
+
+
+	原型继承：
+		var a = {
+			name : '小明'
+		};
+
+		var b = cloneObj(a);
+
+		b.name = '小强';
+
+		//alert( b.name );
+		alert( a.name );
+
+		function cloneObj(obj){
+			
+			var F = function(){};
+			
+			F.prototype = obj;
+			
+			return new F();
+			
+		}
+
+
 14.
+	拷贝继承:  通用型的  有new或无new的时候都可以
+
+	类式继承:  new构造函数
+
+	原型继承:  无new的对象
+
+15.组件开发
+	对象的多种表现形式
+		提高对象的复用性
+		如何配置参数和默认参数
+		例子 : 拖拽
+		例子 : 弹窗
