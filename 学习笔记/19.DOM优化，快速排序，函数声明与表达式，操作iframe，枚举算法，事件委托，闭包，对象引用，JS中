@@ -1,0 +1,77 @@
+DOM优化，快速排序，函数声明与表达式，操作iframe，枚举算法，事件委托，闭包，对象引用，JS中的跨域，firebug工具使用以及HTML5-history(历史管理)
+
+1.DOM优化
+	什么是DOM?
+		用于操作XML和HTML文档的应用程序
+			DOM节点
+			DOM树
+			DOM API
+				getElementById
+				childNodes
+				appendChild
+				innerHTML
+
+	DOM与JavaScript
+		浏览器会把dom与js独立实现
+			像两个独立的小岛
+		js操作dom
+			从一个岛到另一个岛
+		dom的性能
+			岛与岛之间的桥，每次通过收取“过桥费”
+			尽量减少过桥的次数
+		innerHTML与dom方法对比
+			chrome ： dom方法要比innerHTML 性能要好
+
+	减少DOM操作
+		节点克隆
+			cloneNode
+		访问元素集合
+			尽量用局部变量
+		元素节点
+			尽量用只获取元素的节点方法
+		选择API
+			利用querySelector、querySelectorAll
+
+	DOM与浏览器
+		重排：改变页面的内容
+		重汇：浏览器显示内容
+		添加顺序
+			尽量在appendchild前添加操作
+		合并DOM操作
+			利用cssText
+		缓存布局信息
+		文档碎片
+			createDocumentFragment()
+
+	DOM与事件
+		事件委托
+	DOM与前端模板
+		能更好的对逻辑和视图分离，MVC架构的基础
+		例：jQuery.tmpl()
+
+
+2.快速排序
+	1.找一个基准点
+	2.建立两个数组，分别存储左边和右边的数组
+	3.利用递归进行下次比较
+
+	function quickSort(){
+		if(arr.length <= 1){
+			return arr;
+		}
+
+		var num = Math.floor(arr.length/2);
+		var numValue = arr.splice(num,1);
+
+		var left = [];
+		var right = [];
+
+		for(var i=0;i<arr.length;i++){
+			if(arr[i]<numValue){
+				left.push(arr[i]);
+			}else{
+				right.push(arr[i]);
+			}
+		}
+		return quickSort(left).concat([numValue],quickSort(right));
+	}
