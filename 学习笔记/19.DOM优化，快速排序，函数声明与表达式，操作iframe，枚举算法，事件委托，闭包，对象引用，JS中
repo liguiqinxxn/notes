@@ -272,3 +272,23 @@ DOM优化，快速排序，函数声明与表达式，操作iframe，枚举算�
 	}
 
 	alert(test(4));
+
+9.js中的跨域
+
+	不存在跨域问题：
+		www.a.com/a.js
+		www.a.com/c/b.js
+
+	存在跨域问题：
+		www.a.com   //相同域名不同子域下
+		b.a.com
+
+		www.a.com   //不同域名下
+		www.b.com
+
+	ajax : XMLHttpRequest() 不能跨域的
+
+	解决方法：
+		1.document.domain = 'a.com';
+		2.服务器代理： XMLHttpRequest代理文件
+		3.script标签
