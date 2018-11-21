@@ -270,3 +270,15 @@ function quickSort(){
 	}
 	return quickSort(left).concat([numValue],quickSort(right));
 }
+
+function sortOddEven (arr){
+	var newArr =[];
+	for (var i = 0; i < arr.length; i++) {
+		if(arr[i]%2===0){
+			newArr.push(arr[i]);
+		}else{
+			newArr.unshift(arr[i]);
+		}
+	}
+	return newArr;
+}
