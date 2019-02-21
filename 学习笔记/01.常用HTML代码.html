@@ -17,3 +17,339 @@
 <source src="lock.mp4">
 Your browser does not support the video tag.
 </video>
+
+
+
+html5
+1.html5标签支持大小写，但不推荐，之前的html是怎么写的，现在依然这么写
+
+2.HTML5属于上一代HTML的新迭代语言，设计HTML5最主要的目的是为了在移动设备上支持多媒体！！！
+    例如：video标签和audio及canvas标记
+    新特性：
+        1.取消了过时的显示效果标记<font></font> 和<canvas></canvas>...
+        2.新表单元素引入
+        3.新语义标签的引入
+        4.canvas标签（图形设计）
+        5.本地数据库（本地存储）
+        6.一些API
+
+3. HTML5的优点   
+    优点：
+        1.提高可用性和改进用户的友好体验；
+        2.可以给站点带来更多的多媒体元素（视频和音频）；
+        3.可以很好的替代FLASH和Silvelight；
+        4.当涉及到网站的抓取和索引的时候，对于SEO很友好；
+        5.将被大量应用于移动应用程序和游戏；
+        6.可移植性好
+    缺点：
+        该标准并未能很好的被浏览器所支持。因新标签的引入，各浏览器之间将缺少一种统一的数据描述格式，造成用户体验不佳。（ie8以下的支持不友好）
+
+4.HTML5的漏洞
+    在浏览网页的时候总是会将cookie等小部分文件下载在本地硬盘上，这些文件都不大，控制在5-10KB之间。但是如果你在访问HTML5的网页的时候下载的文件就会顺便放大1000倍，容量可能是5MB或者以上，一些恶意程序甚至能够通过这个漏洞不断在网页上下载一些无用文件直到填满你的硬盘。你可以访问这个测试网站（http://www.filldisk.com）看看你使用的浏览器是否存在这个漏洞（Firefox对此免疫）。
+
+5.语义化标签
+    语义化：标签有自己的含义，浏览器或者程序员一看就知道是什么
+    <article>   定义页面独立的内容区域。
+    <aside> 定义页面的侧边栏内容。
+    <bdi>   允许您设置一段文本，使其脱离其父元素的文本方向设置。
+    <command>   定义命令按钮，比如单选按钮、复选框或按钮
+    <details>   用于描述文档或文档某个部分的细节
+    <dialog>    定义对话框，比如提示框
+    <summary>   标签包含 details 元素的标题
+    <figure>    规定独立的流内容（图像、图表、照片、代码等等）。
+    <figcaption>    定义 <figure> 元素的标题
+    <footer>    定义 section 或 document 的页脚。
+    <header>    定义了文档的头部区域
+    <mark>  定义带有记号的文本。
+    <meter> 定义度量衡。仅用于已知最大和最小值的度量。
+    <nav>   定义导航链接的部分。
+    <progress>  定义任何类型的任务的进度。
+    <ruby>  定义 ruby 注释（中文注音或字符）。
+    <rt>    定义字符（中文注音或字符）的解释或发音。
+    <rp>    在 ruby 注释中使用，定义不支持 ruby 元素的浏览器所显示的内容。
+    <section>   定义文档中的节（section、区段）。
+    <time>  定义日期或时间。
+    <wbr>   规定在文本中的何处适合添加换行符。
+
+6.语义化标签兼容问题
+    解决方式1：在该标签的css中设置该标签的display：block
+        通过DOM的方式创建这个标签
+        document.createElement("header");
+    解决方式2：引入外部的htmlshiv.js文件（插件，外部的js文件）
+        <script src="html5shiv.js"></script>
+
+    为了解决h5标签在IE8中兼容的问题，引入了外部的html5shiv.js文件，但是谷歌本身就支持这些标签，没有必要访问这个html5shiv.js的文件（不需要请求）
+
+    如果是IE8就请求这个文件，如果是谷歌就不要请求了
+    所有的浏览器都可以支持这些标签
+    cc:ie6   tab键即可
+
+    <!-- 如果浏览器是小于ie8就执行里面的代码 ，该命令只针对IE浏览器有用-->
+    <!--[if lte IE 8]>
+        <script src="html5shiv.js"></script>
+    <![endif]-->
+
+7.多媒体-音频播放
+    controls:可以在页面中显示该音频控件
+    autoplay：自动播放
+    muted:静音
+    loop：重复播放
+    <audio src="" autobuffer autoloop loop controls></audio>
+
+8.多媒体-视频播放
+    controls:可以在页面中显示该音频控件
+    autoplay：自动播放
+    muted:静音 ，可以做到在谷歌中自动播放，但是，是静音状态
+    loop：重复播放
+    <video src="" autobuffer autoloop loop controls poster="/images/video.png"></video>
+
+    <video autoplay controls loop>
+        <source src="1.mp4" type="">
+        <source src="1.ogg" type="">
+            对不起，您的浏览器不支持，请升级
+    </video>
+    如果A浏览器支持第一个，那就直接播放第一个
+    如果B浏览器支持第二个，遇到第一个标签的时候不会执行
+
+autoplay自动播放在Google上有问题
+
+9.智能表单元素
+    color  颜色
+    date  日期
+    datetime 日期
+    datetime-local  日期和时间
+    email  邮箱
+    month  月份
+    number 数字
+    range  滑块
+    search 搜索
+    tel  电话号码
+    time  时间
+    url  地址
+    week  周和年
+
+使用下面的属性来规定对数字类型number的限定
+    disabled    规定输入字段是禁用的
+    max 规定允许的最大值
+    maxlength   规定输入字段的最大字符长度
+    min 规定允许的最小值
+    pattern 规定用于验证输入字段的模式
+    readonly    规定输入字段的值无法修改
+    required    规定输入字段的值是必需的
+    size    规定输入字段中的可见字符数
+    step    规定输入字段的合法数字间隔
+    value   规定输入字段的默认值
+
+10.表单属性
+    placeholder  占位符
+    autofocus  自动获取焦点
+    multiple  多文件上传
+    autocomplete  自动完成
+    form 
+    novalidate  关闭验证
+    required  必填项
+    pattern 自定义验证
+
+    form属性在表单标签中写，值就设置为from标签中的id值，那么该标签就可以提交了
+    位于form表单外的 input 字段引用了 HTML form (该 input 表单仍然属于form表单的一部分):
+    <form action="demo-form.php" id="form1">
+      First name: <input type="text" name="fname"><br>
+      <input type="submit" value="提交">
+    </form>
+
+    Last name: <input type="text" name="lname" form="form1">
+
+    datalist标签需要有自己的id值，然后配合list属性来使用，才可以有数据列表的效果。
+    <input list="browsers">
+
+    <datalist id="browsers">
+      <option value="Internet Explorer">
+      <option value="Firefox">
+      <option value="Chrome">
+      <option value="Opera">
+      <option value="Safari">
+    </datalist>
+
+11.h5中一些api的使用
+    选择器：css中选择器怎么用，这里就怎么用
+
+    1.document.querySelector("选择器")
+    只能获取一个（默认第一个）
+
+    2.document.querySelectorAll("选择器")
+    获取的是多个的
+
+    3.document.getElementsByClassName("类样式的名字")
+
+    例：document.querySelector("div p").style.backgroundColor="yellow";
+
+    4.  classList.add("类名")  添加类样式
+    5.  classList.remove("类名")   删除类样式
+    6.  classList.toggle("类名")   切换类样式
+    7.  classList.contains("类名")   返回的是：是否应用了这个类样式
+
+
+12.自定义属性操作
+    自定义属性：html中没有这个属性，自己加，为了方便开发
+
+    设置自定义属性：data-名字     ------都小写
+    获取自定义属性的值：dataset属性
+
+    <div id="dv" data-name="帅哥" data-age="20" data-user-sex="男"></div>
+    <script>
+        var dt = document.querySelector('#dv').dataset;
+        console.log(dt.name);  //对象。属性
+        console.log(dt["age"]);  //对象["属性名字"]
+        console.log(dt.userSex);
+    </script>
+
+    如何通过代码为标签添加自定义属性
+
+    dt.height= "180"
+    dt.userWeight= "SS";
+
+13.文件读取操作
+    通过FileReader对象可以读取本地存储的文件，使用File对象来指定所要读取的文件或数据。
+    File对象可以是来自用户在一个<<input type="file">元素上选择文件后返回的FileList对象，也可以来自由拖放操作生成的DataTransfer。
+
+    上传服务器，服务器保存路径，再将路径返回到页面，很麻烦。
+    上传多次，发送多次请求。如果上传多余图片，不想要了，还要从服务器干掉图片
+
+    FileReader
+        FileReader   接口有3个用来读取文件方法返回结果在result中
+            readAsBinaryString  --将文件读取为二进制编码
+            readAsText    --将文件读取为文件
+            readAsDataURL  --将文件读取为DataURL
+
+    FileReader提供的事件模型
+        onboard  中断时触发
+        onerror  出错时触发
+        onload  文件读取成功完成时触发
+        onloadend  读取完成触发，无论成功或失败
+        onloadstart  读取开始时触发
+        onprogress  读取中
+
+    <!-- f1上传css文件，f2上传js文件 -->
+    <input type="file" id="f1">
+    <input type="file" id="f2">
+    <div></div>
+    <script>
+         //读取文件，获取上传文件标签的这个对象
+        var f1 = document.querySelector("#f1");
+        // 上传文件的触发事件--（只要上传文件就会触发该事件）
+        f1.onchange=function(){
+            // 可以获取上传的文件
+            var fl1 = this.files[0];
+            // 读取文件，创建读取文件的对象
+            var fReader = new FileReader();
+            // 读取文件
+            fReader.readAsText(fl1);
+            // 开始读取文件的加载的事件
+           fReader.onload = function(){
+                //css的代码最终是可以在style标签写的
+                var style = document.createElement("style"); 
+                // 获取读取文件的结果
+                var result = fReader.result;
+                style.innerHTML = result;
+                document.querySelector("head").appendChild(style);
+            };
+            
+        };
+    </script>
+
+14.h5中有网络状态的检测
+    var state = window.navigator.onLine;
+    if(state){
+        alert("在线的");
+    }else{
+        alert("不在线");
+    }
+
+    //两个事件--联网就触发第一个，没网就立刻触发第二个
+    window.ononline=function(){
+        alert("连接上了");
+    };
+    window.onoffline=function(){
+        alert("掉线了");
+    };
+
+
+15.地理定位
+    在HTML规范中，增加了获取用户地理信息的API，这样使得我们可以基于用户位置开发互联网应用，即基于位置服务（Location Base Service）。
+    获取方式：
+        通过IP地址、三维坐标、GPS、Wi-Fi、手机信息等多种方式获取地址信息，浏览器会自动以最优方式去获取用户地理信息。
+    隐私：
+        HTML5 Geolocation 规范提供了一套保护用户隐私的机制。必须先得到用户明确许可，才能获取用户的位置信息。
+
+    方法1：可以当前地理位置
+        window.navigator.geolocation.getCurrentPosition(成功的函数，失败的函数);
+
+        参数1：函数：定位成功后就执行该函数
+        参数2：函数：定位失败后就执行这个函数
+
+        有的时候是获取不到，会报一些没有响应的错
+
+        window.navigator.geolocation.getCurrentPosition(function(position){
+           console.log(position.coords.latitude); //纬度
+           console.log(position.coords.longitude); //经度 
+        },function(msg){
+        //无法获取，此时执行的是这个
+            console.log(msg); //如果定位失败，请打印失败的相关信息
+        });
+
+    方法2：获取实时地理信息
+        navigator.geolocation.watchPosition(successCallback, errorCallback)
+
+        position.coords.latitude  纬度
+        position.coords.longitude  经度
+        position.coords.accuracy   精度
+        position.coords.altitude  海拔高度
+
+16.本地存储
+    随着互联网的快速发展，基于网页的应用越来越普通，同时也变的越来越复杂。为了满足各种各样的需求，会经常性在本地存储大量的数据，传统方式我们以document.cookie来进行存储的。但是由于其存储大小只有4K左右，并且解析也相当的复杂，给开发带来诸多不便，HTNL5规范则提出解决方案，使用sessionStorage和localStorage存储数据。
+    特性：
+        1、设置，读取方法
+        2、容量较大
+        3、能存储字符串
+    sessionStorage：
+        1、生命周期为关闭浏览器窗口
+        2、在同一个窗口下数据可以共享
+        3、容量约5M
+    localStorage：
+        1、永久生效，除非手动删除（在chrome浏览器下需要以服务器方式（低版本遇到过））
+        2、可以多窗口共享
+        3、容量约20M
+sessionStorage：
+    设置值：属性名字和值
+    window,sessionStorage.setItem("name","帅哥");
+    window,sessionStorage.setItem("age","18");
+    window,sessionStorage.setItem("sex","男");
+
+    移除属性
+    window.sessionStorage.removeItem("age");
+
+    获取数据：传入属性名字，得到该属性对应的值
+    var result1 = window,sessionStorage.getItem("name");
+    var result2 = window,sessionStorage.getItem("age");
+    var result3 = window,sessionStorage.getItem("sex");
+
+    清空数据
+    window,sessionStorage.clear();
+
+localStorage：  
+    window.localStorage.setItem(key,value) 设置存储内容
+    window.localStorage.getItem(key)  获取内容
+    window.localStorage.removeItem(key)  删除内容
+    window.localStorage.clear()  清空内容
+
+17.canvas
+    HTML5 <canvas>元素用于图形的绘制，通过脚本（通常是JavaScript）来完成，<canvas>标签只是图形容器，您必须使用脚本来绘制图形。
+    你可以通过多种方法使用canvas绘制路径，盒、圆、字符以及添加图像。
+
+    绘制方式：
+        1、创建画布
+        2、获取绘图对象
+        3、定点
+        4、绘制
+        5、重置路径
+        
