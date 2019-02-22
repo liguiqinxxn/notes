@@ -45,4 +45,231 @@ outset: 定义一个3D突出边框。 效果取决于边框的颜色值
 	    -webkit-appearance: none;
 	}
 
-5. 
+
+
+CSS3
+1.设置图片从哪里开始显示
+	background-origin: border-box; //图片从边框左上角显示
+	background-origin: padding-box; //图片从内边距的位置显示（默认）
+	background-origin: content-box; //图片从内容的位置开始显示
+
+2.设置图片在哪显示
+	background-clip: border-box; //将背景图片在整个容器中显示（默认）
+	background-clip: padding-box; //在padding内容显示
+	background-clip: content-box;  //文本内容区域显示
+
+3.设置背景按照比例缩放完整的显示
+	background-size: contain;
+4.设置背景按照自己的缩放比例铺满，不确定是否完整显示
+	background-size: cover;
+
+5.边框、圆角及阴影
+	// 设置四个角的角度
+	border-radius:10px;
+	//水平 ，垂直，模糊度，阴影的颜色，inset是内部阴影
+	box-shadow: 10px 20px 5px blue inset;
+
+6.边框图片
+	// 选择图片作为边框的背景
+	border-image-source: url("border_images_5.png");
+	// 切割图片
+	border-image-slice: 20;
+	border-image-repeat: round; //stretch：拉伸，repeat：平铺 ，round：铺满
+
+7.文本修饰
+	// 水平，垂直，模糊度，阴影的颜色
+	text-shadow:5px 5px 5px red;
+
+8.属性选择器
+	// p后面的所有的ul
+	p~ul{
+		background-color: green;
+	}
+
+	// 具有href属性，并且属性是以E开头
+	a[href^="E"]{
+		background-color: green;
+	}
+
+	// 具有href属性，并且属性是以mp4结尾
+	a[href$="mp4"]{
+		background-color: green;
+	}
+
+	// 具有href属性，并且属性中包含l
+	a[href*="l"]{
+		background-color: green;
+	}
+
+9.其他属性选择器
+	// 目标选择器，找锚点的p
+	p:target{
+		background-color: green;
+	}
+	//选中后背景颜色改变
+	p::selection{
+		background-color: yellow;
+	}
+	//设置第一个文字
+	div:first-letter{
+		font-size: 30px;
+	}
+	//设置第一行的文字样式
+	div:first-line{
+		background-color: yellow;
+	}
+
+10.结构伪类选择器
+	//所有li中第一个
+	li:first-child{
+		background-color: yellow;
+	}
+	//所有li中最后一个
+	li:last-child{
+		background-color: green;
+	}
+	//前面第三个li样式
+	li:nth-child(3){
+		background-color: blue;
+	}
+	// 后面的第5个
+	li:nth-last-child(5){
+		background-color: orangered;
+	}
+	// 奇数和偶数的形式
+	li:nth-child(odd){
+		background-color: deeppink;
+	}
+	li:nth-child(even){
+		background-color: green;
+	}
+
+11.线性渐变及径向渐变
+线性渐变
+	// 方向，开始渐变颜色，结束的渐变颜色
+	background-image: linear-gradient(to right,yellow,green);
+	//0deg从下向上渐变，90deg从左向右渐变
+	background-image: linear-gradient(90deg,yellow,green);
+
+	background-image: linear-gradient(to right,yellow 50%,green);
+	background-image: linear-gradient(to right,red 20%,green 20%,green 40%,red 80%);
+
+径向渐变
+	// 半径及开始的位置，开始的渐变颜色，结束的渐变颜色
+	background-image: radial-gradient(100px at center,red,green);
+
+	background-image: radial-gradient(100px at 10px 150px,red,green);
+
+12.2D转换
+	// 横坐标发生位移，相对于原来的位置
+	transform:translate(100px);
+	// 横纵坐标位移
+	transform:translate(100px,100px);
+
+	// 旋转
+	transform: rotate(60deg);
+
+	// 缩小和放大,宽度为原来的0.2，高度为原来的2倍
+	transform：scale(0.2,2);
+
+	// 沿着x轴的方向倾斜了30度，沿着y轴方向也倾斜了30度
+	transform:skew(30deg,30deg);
+
+13.3D转换
+	perspective：1000px; //透视效果
+
+	transform: translateX(100px); //沿着X轴位移
+	transform： translateY(100px);//沿着y轴位移
+	transform：translateZ(100px); //沿着Z轴位移
+	transform：rotateX(30deg); //沿着x轴旋转
+	transform：rotateY(30deg); //沿着y轴旋转
+	transform：rotateZ(30deg); //沿着z轴旋转
+	transform:scaleX(2);
+	transform:scaleY(2);
+	transform:scaleZ(3);
+	transform:skewX(30deg); //倾斜
+	transform:skewY(30deg);
+
+14.过渡（补间动画）
+	// 写了什么属性，就是对应的这个属性有这种过渡的效果
+	transition-property:all;//所有的属性
+	transition-delay:1s; //延时的秒数
+	transition-duration:2s; //过渡的秒数
+	transition-timing-function:linear;
+
+15.动画
+	// 使用动画集的名字
+	animation-name:rotate;
+	animation-duration: 2s; //秒数
+	animation-iteration-count: 2; //设置动画执行的次数 infinite：无数次
+	animation-timing-function: linear; //匀速，设置速度的
+	animation-direction: alternate; //动画逆播
+	animation-delay：1s; //延时
+	animation-fill-mode: forwards; //动画结束了，但不能是无限次
+
+	animation-paly-state: paused; //鼠标进入就停止了
+
+	// 定义一个动画集
+	// @keyframes 动画集名字
+	@keyframes rotate{
+		from { 
+			transform: rotateZ(0deg);
+		 }
+		to { 
+			transform: rotateZ(360eg);
+		 }
+	}
+
+16.伸缩布局（响应式布局）
+	// 先把父元素设置为flex（伸缩的效果）
+	display:flex;
+	// 子元素在主轴方向的对齐方式的设置
+	justify-content:flex-start; //默认从左向右
+	justify-content:flex-end; //从右向左
+	justify-content:center; //中间显示
+	justify-content:space-between; //两端对齐的方式
+	justify-content:space-around; //两边空白，环绕对齐
+
+	// 主轴的方向作为调整
+	flex-direction：row; //主轴水平
+	flex-direction: row-reverse; //主轴水平反转
+
+	flex-direction：column; //主轴水平方向变成了垂直的方向，侧轴永远都是垂直主轴的
+
+	flex-direction: column-reverse; //主轴竖着反转了
+
+	// 侧着对齐
+	align-items: flex-start;//侧轴开始
+	align-items: flex-end;
+	align-items: center;
+	align-items: stretch;//拉伸的效果显示，要想有效果，必须干掉子元素的高度
+
+	//默认子元素没有换行
+	flex-wrap:wrap; //子元素换行
+	flex-wrap:nowrap; // 默认值
+	flex-wrap:wrap-reverse; //反转加换行
+
+	align-content：flex-start; //子元素换行后有空白行，希望没有空白行，需要重新设置主轴的方向
+
+17.伸缩的百分比
+div{
+	display: flex;
+}
+.div1{
+	width: 100px;
+	height: 100px;
+	background-color: red;
+	flex:2;
+}
+.div2{
+	width: 100px;
+	height: 100px;
+	background-color: green;
+	flex:2;
+}
+.div1{
+	width: 100px;
+	height: 100px;
+	background-color: yellow;
+	flex:1;
+}
