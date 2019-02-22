@@ -352,4 +352,334 @@ localStorage：
         3、定点
         4、绘制
         5、重置路径
-        
+
+    <canvas width="800" height="600"></canvas>
+    <script>
+        //画一条线
+        // 获取画布
+        var c=document.querySelector("canvas");
+        // 获取绘图的对象
+        var ctx=c.getContext("2d");
+
+        // 开始的位置(横纵坐标)
+        ctx.moveTo(100,100);
+        // 结束的位置
+        ctx.lineTo(300,100);
+        // 设置线的颜色
+        ctx.strokeStyle="red";
+        // 设置线的宽度
+        ctx.lineWidth=10;
+        // 绘制
+        ctx.stroke();
+        // 重置路径
+        ctx.beginPath();
+
+        // 再画一条线
+
+        // 开始的位置(横纵坐标)
+        ctx.moveTo(100,200);
+        // 结束的位置
+        ctx.lineTo(400,200);
+        // 设置线的颜色
+        ctx.strokeStyle="green";
+        // 设置线的宽度
+        ctx.lineWidth=20;
+        // 绘制
+        ctx.stroke();
+        // 重置路径
+        ctx.beginPath();
+    </script>
+    问题：重复绘制之前的
+        解决方式1：只调用一次stroke()这个方法即可
+        解决方式2：使用beginPath(),重置路径即可
+
+
+    线连接方式：lineJoin:round | bevel | miter(默认)
+    线帽(线两端的结束方式)：
+    lineCap：butt(默认值) | round | square
+
+    例：
+    //获取画布
+    var c=document.querySelector("canvas");
+    //获取绘制的对象
+    var ctx = c.getContext("2d");
+
+    ctx.moveTo(100,100);
+    ctx.lineTo(300,150);
+    ctx.lineTo(100,200);
+    ctx.strokeStyle = "red";
+    //设置连接处的样式
+    ctx.lineJoin = "miter"; 
+    //设置线两端的结束方式
+    ctx.lineWidth = 10;
+    ctx.stroke();
+
+
+    闭合路径
+    //获取画布
+    var c = document.querySelector("canvas");
+    //获取绘制的对象
+    var ctx = c.getContext("2d");
+
+    //画一个三角形
+    ctx.moveTo(100,100);
+    ctx.lineTo(100,300);
+    ctx.lineTo(400,300);
+    //ctx.lineTo(100,100);
+    ctx.closePath(); //闭合路径，画图就差最后一步合并了，那么此时可以用
+    ctx.stroke();
+
+
+18.线性渐变
+    //获取画布
+    var c = document.querySelector("canvas");
+    //获取绘制的对象
+    var ctx = c.getContext("2d");
+
+    //创建渐变的方案
+    //起始位置的横纵坐标，结束位置的横纵坐标
+    var lgd= ctx.createLinearGradient(100,100,500,100);
+    //添加渐变的颜色
+    //从0开始，1结束，0到1之间的小数
+    lgd.addColorStop(0,"red");
+    lgd.addColorStop(0.2,"blue");
+    lgd.addColorStop(0.5,"yellow")
+    lgd.addColorStop(1,"green");
+    //把渐变方案给stokeStyle
+    ctx.strokeStyle = lgd;
+
+    ctx.moveTo(100,100);
+    ctx.lineTo(500,100);
+    ctx.lineWidth = 20;
+    ctx.stroke();
+
+19.径向渐变
+    //获取画布
+    var c = document.querySelector("canvas");
+    //获取绘制的对象
+    var ctx = c.getContext("2d");
+
+    //创建渐变的方案
+    //开始的横纵坐标，半径，结束的横纵坐标，半径
+    var rgd = ctx.createRadialGradient(200,150,50,200,150,100);
+    //添加渐变的颜色
+    rgd.addColorStop(0,"red");
+    rgd.addColorStop(1,"green");
+
+    //设置填充的样式
+    ctx.fillStyle = rgd;
+    ctx.moveTo(100,50);
+    ctx.lineTo(300,50);
+    ctx.lineTo(300,300);
+    ctx.lineTo(100,300);
+    ctx.closePath();
+
+    ctx.fill(); //填充
+
+20.非零环绕
+    //获取画布
+    var c = document.querySelector("canvas");
+    //获取绘制的对象
+    var ctx = c.getContext("2d");
+
+    //逆时针
+    ctx.moveTo(100,100);
+    ctx.lineTo(100,300);
+    ctx.lineTo(300,300);
+    ctx.lineTo(300,100);
+    ctx.closePath();
+
+    //顺时针
+    ctx.moveTo(150,150);
+    ctx.lineTo(250,150);
+    ctx.lineTo(250,250);
+    ctx.lineTo(150,250);
+    ctx.closePath();
+
+    ctx.stroke();
+    ctx.fillStyle="red";
+    ctx.fill();
+
+    同向 为1
+    反向 为-1
+    相加为0
+
+    非零环绕原则
+        1、任意找一点，越简单越好
+        2、以点为圆心，绘制一条射线，越简单越好(相交的边越少越好)
+        3、以射线为半径顺时针旋转，相交的边同向记为+1，反方向记为-1，如果相加的区域等于0，则不填充
+        4、非零区域填充
+
+21.绘制虚线
+    //获取画布
+    var c = document.querySelector("canvas");
+    //获取绘制的对象
+    var ctx = c.getContext("2d");
+
+    ctx.moveTo(100,50);
+    ctx.lineTo(400,50);
+    //虚线：参数是一个数组：线的长度是20，空白的地方也是20
+    ctx.setLineDash([20,20]);
+    ctx.setLineDash([20,10]);
+    ctx.setLineDash([10,5,20]);
+    ctx.stroke();
+
+
+22.绘制矩形
+     //获取画布
+    var c = document.querySelector("canvas");
+    //获取绘制的对象
+    var ctx = c.getContext("2d");
+
+    var x = 0; //开始的坐标
+    //每次移动的步数
+    var step = 5;
+    //标记（设置矩形向右移动后再回来）
+    var i = 1;
+    setInterval(function(){
+        //清理画布
+        ctx.clearRect(0,0,c.width,c.height);
+
+        //颜色
+        ctx.fillstyle = "green";
+        //画矩形
+        ctx.fillRect(100,100,100,200);
+        ctx.stroke();
+
+        x+=step*i;//控制横坐标的
+        if(x>c.width-100){
+            i=-1;
+        }else if(x<=0){
+            i=1;
+        }
+    },10);
+
+
+23.绘制文本
+    <canvas width="600" height="400"></canvas>
+    <script>
+        //获取画布
+        var c = document.querySelector("canvas");
+        //获取绘制的对象
+        var ctx = c.getContext("2d");
+
+        ctx.moveTo(300,0);
+        ctx.lineTo(300,400);
+        ctx.stroke();
+
+        ctx.beginPath();
+
+        ctx.moveTo(0,200);
+        ctx.lineTo(600,200);
+        ctx.stroke();
+
+        //绘制文本:是像素 和字体
+        ctx.font="50px 全新硬笔行书简";
+        // 设置文本的对齐方式
+        ctx.textAlign = "conter"; //left|right|center
+        // 设置文本的上下对齐方式
+        ctx.txetBaseline = "middle"; //top|bottom|alphabetic(默认)
+        // 设置阴影的颜色
+        ctx.shadowColor = "red";
+        // 水平方向偏移量
+        ctx.shadowOffsetX = 5;
+        ctx.shadowOffsetY = 5;
+        // 阴影的模糊度
+        ctx.shadowBlur = 5;
+
+        // 参数1：文字内容，参数2：横坐标，参数3：纵坐标
+        //镂空的效果
+        ctx.strokeText("全网最帅",300,200);
+        // 填充文本
+        ctx.fillText("全网最帅",300,200);
+    </script>
+    
+24.绘制图片
+    <canvas width="600" height="400"></canvas>
+    <script>
+        //获取画布
+        var c = document.querySelector("canvas");
+        //获取绘制的对象
+        var ctx = c.getContext("2d");
+
+        // 绘制图片
+        var img = document.createElement("img");
+        img.src = "image/2.jpg";
+        // 图片和画图发生关系，才可以绘制这个图片
+        // 图片加载
+        img.onload = function(){
+            // 图片对象，画布的横纵坐标，图片的宽和高
+            // ctx.drawImage(img,100,100,200,100);
+
+            // 图片对象，图片选择的横纵坐标，图片的宽和高，画图的横纵坐标，图片显示的宽高
+            ctx.drawImage(img,180,50,350,170,100,100,350,170);
+        };
+    </script>
+
+
+25.绘制弧度
+    <canvas width="600" height="400"></canvas>
+    <script>
+        //获取画布
+        var c = document.querySelector("canvas");
+        //获取绘制的对象
+        var ctx = c.getContext("2d");
+
+        // 绘制弧度：圆心坐标，半径，开始的弧度，结束的弧度，默认顺时针（false）
+        ctx.arc(200,150,50,Math.PI/2,2*Math.PI,false);
+        ctx.stroke();
+    </script>
+
+26.平移
+    <canvas width="600" height="400"></canvas>
+    <script>
+        //获取画布
+        var c = document.querySelector("canvas");
+        //获取绘制的对象
+        var ctx = c.getContext("2d");
+
+        // 平移画图的原点（默认原点在左上角）
+        // 设置画布原点平移
+        ctx.translate(100,100);
+        // 画一条横线
+        ctx.moveTo(0,0); //仍然是0,0的起始位置
+        ctx.lineTo(100,0);
+        ctx.lineWidth=10;
+        ctx.strokeStyle="green";
+        ctx.stroke();
+    </script>
+
+27.旋转
+     <canvas width="600" height="400"></canvas>
+    <script>
+        //获取画布
+        var c = document.querySelector("canvas");
+        //获取绘制的对象
+        var ctx = c.getContext("2d");
+
+        // 设置画布原点平移
+        ctx.translate(100,100);
+
+        // 旋转的弧度
+        ctx.rotate( Math.PI/2); //90度
+        ctx.moveTo(0,0);
+        ctx.lineTo(200,0);
+        ctx.moveTo(0,0);
+        ctx.lineTo(0,200);
+        ctx.stroke();
+    </script>
+
+28.缩放
+    <canvas width="600" height="400"></canvas>
+    <script>
+        //获取画布
+        var c = document.querySelector("canvas");
+        //获取绘制的对象
+        var ctx = c.getContext("2d");
+
+        ctx.translate(300,200);
+        // 缩放的比列
+        ctx.scale(2, 0.5); //参数1：相对于原来的横坐标的缩放值，参数2：相对于原来的纵坐标的缩放值
+        ctx.arc(0,0,100,0,2*Math.PI);
+        ctx.stroke();
+    </script>
