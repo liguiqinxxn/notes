@@ -198,7 +198,7 @@ header.vue
 
   一般来说，v-if 有更高的切换开销，而 v-show 有更高的初始渲染开销。因此，如果需要非常频繁地切换，则使用 v-show 较好；如果在运行时条件很少改变，则使用 v-if 较好。
 
-13.条件渲染
+13.列表渲染
   v-for
   v-for指令需要使用item in items形式的特殊语法，items是源数据数组并且item是数组元素迭代的别名。
 
@@ -335,4 +335,319 @@ key
     为了解决第二类问题，你可以使用 splice：
 
     vm.items.splice(newLength)
+
+  v-for with v-if
+    当它们处于同一节点，v-for 的优先级比 v-if 更高，这意味着 v-if 将分别重复运行于每个 v-for 循环中。当你想为仅有的一些项渲染节点时，这种优先级的机制会十分有用，如下：
+
+    <li v-for="todo in todos" v-if="!todo.isComplete">
+      {{ todo }}
+    </li>
+    上面的代码只传递了未完成的 todos。
+
+    而如果你的目的是有条件地跳过循环的执行，那么可以将 v-if 置于外层元素 (或 <template>)上。如：
+
+    <ul v-if="todos.length">
+      <li v-for="todo in todos">
+        {{ todo }}
+      </li>
+    </ul>
+    <p v-else>No todos left!</p>
+
+
+14.事件处理
+  监听事件
+    v-on 
+  事件处理方法
+    v-on 还可以接收一个需要调用的方法名称
+  内联处理器中的方法
+    除了直接绑定到一个方法，也可以在内联 JavaScript 语句中调用方法
+  事件修饰符
+    修饰符是由点开头的指令后缀来表示。
+    .stop 
+    .prevent
+    .capture
+    .self
+    .once 
+    .passive
+
+   阻止单击事件继续传播
+  <a v-on:click.stop="doThis"></a>
+
+  提交事件不再重载页面
+  <from v-on:submit.prevent="onSubmit"></from>
+
+  修饰符可以串联
+  <a v-on:click.stop.prevent="doThat"></a>
+
+  只有修饰符
+  <from v-on:submit.prevent></from>
+
+  添加事件监听器时使用事件捕获模式
+  即元素自身触发的事件先在此处理，然后才交由内部元素进行处理
+  <div v-on:click.capture="doThis">...</div>
+
+  只当在event.target 是在当前元素自身时触发处理函数
+  即事件不是从内部元素触发的
+  <div v-on:click.self="doThat">...</div>
+
+  注意：使用修饰符时，顺序很重要；相应的代码会以同样的顺序产生。因此，用v-on：click.prevent.self会阻止所有的点击，而v-on：click.self.prevent只会阻止对元素自身的点击。
+
+  2.1.4新增
+  点击事件将只会触发一次
+  <a v-on:click.once="doThis"></a>
+  注意：不像其它只能对原生的 DOM 事件起作用的修饰符，.once 修饰符还能被用到自定义的组件事件上。
+
+  2.3.0新增
+  Vue还对应addEventListener中的passive选项提供了 .passive 修饰符。 
+  <!--滚动事件的默认行为（即滚动行为）将会立即触发 -->
+  <!-- 而不会等待 'onScroll' 完成-->
+  <!--这其中包含'event.preventDefault()'的情况 -->
+  <div v-on:scroll.passive="onScroll">...</div>
+
+  这个.passive 修饰符尤其能够提升移动端的性能。
+
+  注意：不要把.passive 和 .prevent一起使用，因为.prevent将会被忽略，同时浏览器可能会向你展示一个警告。请记住，.passive会告诉浏览器你不想阻止事件的默认行为。
+
+  按键修饰符
+    在监听键盘事件时，我们经常需要检查详细的按键。Vue允许为v-on在监听键盘事件时添加按键修饰符；
+
+    <!-- 只有在'key' 是'Enter'时调用 `vm.submit()`-->
+    <input v-on:keyup.enter="submit">
+
+    可以直接将KeyboardEvent.key暴露的任意有效按键名转换为kebab-case来作为修饰符。
+    <input v-on:keyup.page-down="onPageDown">
+
+
+  按键码
+    注意：keyCode的事件用法已经被废弃了并可能不会被最新的浏览器支持。
+
+  使用keyCode特性也是允许的
+  <input v-on:keyup.13="submit">
+
+  为了在必要的情况下支持旧浏览器，Vue提供了绝大多数常用的按键码的别名：
+    .enter 
+    .tab 
+    .delete (捕获"删除"和"退格"键)
+    .esc
+    .space
+    .up 
+    .down
+    .left
+    .right
+    注意：有一些按键（.esc 以及所有的方向键）在IE9中有不同的key值，如果你想支持IE9，这些内置的别名应该是首选。
+
+    还可以通过全局config.keyCode对象自定义按键修饰符别名。
+    //可以使用`v-on:keyup.f1`
+    Vue.config.keyCodes.f1 = 112
+
+    可以用如下修饰符来实现仅在按下相应按键时才触发鼠标或键盘事件的监听器。
+    .ctrl
+    .alt 
+    .shift
+    .meta
+    <!-- Alt + C -->
+    <input @keyup.alt.67="clear">
+
+    <!-- Ctrl + Click -->
+    <div @click.ctrl="doSomething">Do something</div>
+
+    注意：请注意修饰键与常规按键不同，在和 keyup 事件一起用时，事件触发时修饰键必须处于按下状态。换句话说，只有在按住 ctrl 的情况下释放其它按键，才能触发 keyup.ctrl。而单单释放 ctrl 也不会触发事件。如果你想要这样的行为，请为 ctrl 换用 keyCode：keyup.17。
+
+  .exact 修饰符 
+    .exact修饰符允许你控制由精确的系统修饰符组合触发的事件。
+    <!-- 即使Alt 或 Shift 被一同按下时也会触发-->
+    <button @click.ctrl = "onClick"> A </button>
+
+    <!--有且只有Ctrl被按下的时候才触发 -->
+    <button @click.ctrl.exact="onCtrlClick">A</button>
+
+    <!-- 没有任何系统修饰符被按下的时候才触发 -->
+    <button @click.exact="onClick">A</button>
+
+  鼠标按钮修饰符
+    .left
+    .right
+    .middle
+    这些修饰符会限制处理函数仅响应特定的鼠标按钮。
+
+15.表单输入绑定
+   基本语法
+     可以用v-model指令在表单<input>、<textarea>及<select>元素上创建双向数据绑定。它会根据控件类型自动选取正确的方法来更新元素。尽管有些神奇，但v-model本质上不过是语法糖。它负责监听用户的输入事件以更新数据，并对一些极端场景进行一些特殊处理。
+
+     注意： v-model 会忽略所有表单元素的value、checked、selected特性的初始值而总是将Vue实例的数据作为数据来源。你应该通过JavaScript在组件的data选项中声明初始值。
+
+     v-model在内部使用不同的属性为不同的输入元素并抛出不同的事件：
+       text和textarea元素使用value属性和input事件；
+       checkbox和radio使用checked属性和change事件；
+       select字段将value作为prop并将change作为事件。
+
+      注意：对于需要使用输入法（如中文、日文、韩文等）的语言，你会发现v-model不会在输入法组合文字过程中得到更新。如果你也想处理这个过程，请使用input事件。
+
+    文本
+      <input v-model="message" placeholder="edit me">
+      <p>Message is: {{ message }}</p>
+
+    多行文本
+      <span>Multiline message is:</span>
+      <p style="white-space: pre-line;">{{ message }}</p>
+      <br>
+      <textarea v-model="message" placeholder"add multiple lines"></textarea>
+
+      注意：在文本区域插值（<textarea></textarea>）并不会生效，应用v-model来代替。
+
+    复选框
+      单个复选框，绑定到布尔值：
+        <input type="checkbox" id="checkbox" v-model="checked">
+        <label for="checked">{{ checked }}</label>
+
+      多个复选框，绑定到同一数组
+        <div id="example-3">
+          <input type="checkbox" id="jack" v-model="checkedNames">
+          <label for="jack">Jack</label>
+          <input type="checkbox" id="john" value="John" v-model="checkedNames">
+          <label for="john">John</label>
+          <input type="checkbox" id="mike" value="MIke" v-model="checkedNames">
+          <br>
+          <span>Checked names: {{ checkedNames }}</span>
+        </div>
+
+        new Vue({
+          el: '#example-3',
+          data:{
+            checkedNames: []
+          }
+        })
+
+    单选按钮
+      <div id="example-4">
+        <input type="radio" id="one" value="One" v-model="picked">
+        <label for="one">One</label>
+        <br>
+        <input type="radio" id="two" value="Two" v-model="picked">
+        <label for="two">Two</label>
+        <br>
+        <span>Picked: {{ picked }}</span>
+      </div>
+
+      new Vue({
+        el: '#example-4',
+        data: {
+          picked: ''
+        }
+      })
+
+    选择框
+      单选时：
+        <div id="example-5">
+          <select v-model="selected">
+            <option disabled value="">请选择</option>
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+          </select>
+          <span>Selected: {{ Selected }}</span>
+        </div>
+
+        new Vue({
+            el: '...',
+            data: {
+              selected: ''
+            }
+        })
+
+        如果v-model表达式的初始值末能匹配任何选项，<select>元素将被渲染为"未选中"状态。在iOS中，这会使用户无法选择第一选项。因为这样的情况下，iOS不会触发change事件。因此，更推荐像上面提供一个值为空的禁用选项。
+
+      多选时(绑定到一个数组)：
+        <div id="example-6">
+          <select v-model="selected" multiple style="width: 50px;">
+            <option>A</option>
+            <option>B</option>
+            <option>C</option>
+          </select>
+          <br>
+          <span>Selected: {{ selected }}</span>
+        </div>
+
+        new Vue({
+          el: '#example-6',
+          data: {
+            selected: []
+          }
+        })
+
+      用v-for渲染的动态选项
+        <select v-model="selected">
+          <option v-for="option in options" v-bind:value="option.value">
+          {{ option.text }}
+          </option>
+        </select>
+        <span>Selected: {{ selected }}</span>
+
+        new Vue({
+          el: '...',
+          data: {
+            selected: 'A',
+            options: [
+            { text: 'One', value: 'A'},
+            { text: 'Two', value: 'B'},
+            { text: 'Three', value: 'C'}
+            ]
+          }
+        })
+
+      值绑定
+        对于单选按钮，复选框及选择框的选项，v-model绑定的值通常是静态字符串(对于复选框也可以是布尔值)：
+
+        <!-- 当选中时，`picked` 为字符串 "a" -->
+        <input type="radio" v-model="picked" value="a">
+
+        <!-- `toggle` 为true或false -->
+        <input type="checkbox" v-model="toggle">
+
+        <!-- 当选中第一个选项时，`selected` 为字符串"abc" -->
+        <select v-model="selected">
+          <option v-model="selected">ABC</option>
+        </selecte>
+
+        但是有时我们可能想把值绑定到Vue实例的一个动态属性上，这时可以用v-bind实现，并且这个属性的值可以不是字符串。
+
+      复选框 
+        <input
+          type="checkbox"
+          v-model="toggle"
+          true-value="yes"
+          false-value="no"
+          >
+
+          //当选中时
+          vm.toggle === 'yes'
+          //当没有选中时
+          vm.toggle === 'no'
+
+          注意：这里的true-value和false-value特性并不会影响输入控件的value特性，因为浏览器在提交表单时并不会包含未被选中的复选框。如果要确保表单中这两个值中的一个能够被提交，(比如"yes"或"no"),请换用单选按钮。
+
+      单选按钮
+        <input type="radio" v-model="pick" v-bind:value="a">
+
+        //当选中时
+        vm.pick === vm.a 
+
+      选择框的选项
+        <select v-model="selected">
+          <!--内联对象字面量 -->
+          <option v-bind:value="{ number:123 }"></option>
+        </select>
+
+        //当选中时
+        typeof  vm.selected  // =》 'object'
+        vm.selected.number   // => 123
+
+      修饰符 
+        .lazy  ；使用change事件进行同步
+        .number ：自动将用户的输入值转换为数值类型
+        .trim  :自动过滤用户输入的首尾空白字符
+
+16.组件基础
     
+
+
