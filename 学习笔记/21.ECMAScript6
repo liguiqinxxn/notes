@@ -17,3 +17,6 @@ const
 		map()、 filter()、 reduce()、 every() 、some()
 	ES6的方法
 		find()、 findIndex()
+
+	arr.find() : 在数组中找到符合条件的第一个
+	
