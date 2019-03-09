@@ -1,2 +1,19 @@
 1.
 let没有变量预解析
+const
+
+2.解构赋值
+3.模板字符串
+4.函数默认参数
+5.展开运算符
+6.箭头函数
+7.扩展运算符
+	...,
+8.对象的扩展
+	Object.assign()
+
+9.数组的方法
+	ES5的方法
+		map()、 filter()、 reduce()、 every() 、some()
+	ES6的方法
+		find()、 findIndex()
