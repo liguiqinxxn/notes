@@ -8,6 +8,36 @@
     $ npm install
     $ npm run dev
 
+
+    # 全局安装 vue-cli3
+    $ npm install -g @vue/cli
+    #创建项目
+    $ vue create router-project
+    $ cd router-project
+    # 安装vue-router
+    $ vue add router or $ npm install vue-router -S
+    $ npm run serve
+
+    # 安装screenfull
+    $ npm install --save screenfull
+    # 安装i18n
+    $ npm install vue-i18n
+    # 安装js-cookie
+    $ npm install js-cookie
+    # 安装nprogress
+    $ npm install --save nprogress
+
+    # 安装node-sass
+    $ npm install node-sass --save-dev
+    # 安装sass-loader
+    $ npm install sass-loader --save-dev
+    # 安装style-loader 有些人安装的是 vue-style-loader 其实是一样的
+    $ npm install style-loader --save-dev
+
+    $ npm install url-loader -D
+    $ npm install --save fuse.js
+    $ npm install element-theme-chalk -S
+
 2.
     new一个vue对象的时候你可以设置它的属性，其中最重要的包括三个，分别是data，methods，watch。
     其中data代表vue对象的数据，methods代表vue对象的方法，watch设置了对象监听的方法。
@@ -659,7 +689,9 @@ key
       2.子组件通过调用内建的$emit方法并传入事件名称来触发一个事件
     使用事件抛出一个值
       
+17.嵌套路由
 
+18.命名视图
 
 
 
